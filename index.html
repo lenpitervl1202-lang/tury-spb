@@ -217,6 +217,7 @@
             background: var(--bg-card); border: 1px solid var(--border);
             transition: all 0.4s; cursor: pointer;
             backdrop-filter: blur(5px);
+            display: flex; flex-direction: column;
         }
         .dest-card:hover {
             transform: translateY(-8px);
@@ -243,7 +244,7 @@
             padding: 4px 12px; border-radius: 50px; font-size: 12px;
             color: var(--gold-light);
         }
-        .dest-body { padding: 24px; }
+        .dest-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
         .dest-body h3 {
             font-size: 20px; font-weight: 800; margin-bottom: 6px;
             letter-spacing: -0.5px;
@@ -254,11 +255,12 @@
         }
         .dest-body .dest-desc {
             font-size: 14px; color: var(--text-dim); line-height: 1.7;
-            margin-bottom: 18px;
+            margin-bottom: 18px; flex: 1;
         }
         .dest-footer {
             display: flex; align-items: center; justify-content: space-between;
             padding-top: 16px; border-top: 1px solid var(--border);
+            margin-top: auto;
         }
         .dest-price {
             display: flex; flex-direction: column;
