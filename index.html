@@ -1018,8 +1018,26 @@
     </div>
 </footer>
 
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <h3>Бронирование</h3>
+        <div class="modal-tour" id="modalTourName"></div>
+        <form id="bookingForm">
+            <input type="text" placeholder="Ваше имя" id="bookingName" required>
+            <input type="tel" placeholder="Номер телефона" id="bookingPhone" required>
+            <input type="email" placeholder="Email (необязательно)" id="bookingEmail">
+            <button type="submit" class="btn-submit">Отправить заявку</button>
+        </form>
+        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
+            Наш менеджер свяжется с вами в течение 15 минут
+        </div>
+    </div>
+</div>
+
 <script>
-    // ─── MOBILE MENU ───
+// ─── MOBILE MENU ───
     document.getElementById('mobileToggle')?.addEventListener('click', () => {
         document.getElementById('navLinks')?.classList.toggle('open');
     });
@@ -1119,24 +1137,5 @@
         alert('Заявка принята! Мы свяжемся с вами в ближайшее время.');
     });
 </script>
-
-<!-- BOOKING MODAL -->
-<div class="modal-overlay" id="bookingModal">
-    <div class="modal">
-        <button class="modal-close" id="modalClose">&times;</button>
-        <h3>Бронирование</h3>
-        <div class="modal-tour" id="modalTourName"></div>
-        <form id="bookingForm">
-            <input type="text" placeholder="Ваше имя" id="bookingName" required>
-            <input type="tel" placeholder="Номер телефона" id="bookingPhone" required>
-            <input type="email" placeholder="Email (необязательно)" id="bookingEmail">
-            <button type="submit" class="btn-submit">Отправить заявку</button>
-        </form>
-        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
-            Наш менеджер свяжется с вами в течение 15 минут
-        </div>
-    </div>
-</div>
-
 </body>
 </html>
