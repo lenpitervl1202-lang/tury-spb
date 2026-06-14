@@ -1028,10 +1028,13 @@
         <button class="modal-close" id="modalClose">&times;</button>
         <h3>Бронирование</h3>
         <div class="modal-tour" id="modalTourName"></div>
-        <form id="bookingForm">
-            <input type="text" placeholder="Ваше имя" id="bookingName" required>
-            <input type="tel" placeholder="Номер телефона" id="bookingPhone" required>
-            <input type="email" placeholder="Email (необязательно)" id="bookingEmail">
+        <form action="https://formsubmit.co/5800-5801@mail.ru" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://lenpitervl1202-lang.github.io/tury-spb/?ok=1">
+            <input type="hidden" name="tour" id="modalTourHidden">
+            <input type="text" name="name" placeholder="Ваше имя" id="bookingName" required>
+            <input type="tel" name="phone" placeholder="Номер телефона" id="bookingPhone" required>
+            <input type="email" name="email" placeholder="Email (необязательно)" id="bookingEmail">
             <button type="submit" class="btn-submit">Отправить заявку</button>
         </form>
         <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
@@ -1121,24 +1124,13 @@
         const card = el.closest('.dest-card');
         const name = card?.querySelector('h3')?.textContent || 'Тур';
         modalTour.textContent = 'Направление: ' + name;
+        document.getElementById('modalTourHidden').value = name;
         modal.classList.add('active');
     }
 
     modalClose.addEventListener('click', () => modal.classList.remove('active'));
     modal.addEventListener('click', function(e) {
         if (e.target === this) modal.classList.remove('active');
-    });
-
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('bookingName').value.trim();
-        const phone = document.getElementById('bookingPhone').value.trim();
-        const email = document.getElementById('bookingEmail').value.trim();
-        const tour = modalTour.textContent.replace('Направление: ', '');
-
-        modal.classList.remove('active');
-        this.reset();
-        alert('Заявка принята! Мы свяжемся с вами в ближайшее время.');
     });
 </script>
 </body>
