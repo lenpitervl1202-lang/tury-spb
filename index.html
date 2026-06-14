@@ -1028,12 +1028,13 @@
         <button class="modal-close" id="modalClose">&times;</button>
         <h3>Бронирование</h3>
         <div class="modal-tour" id="modalTourName"></div>
-        <form id="bookingForm" onsubmit="return submitBooking(this)">
+        <form action="https://formsubmit.co/5800-5801@mail.ru" method="POST">
+            <input type="hidden" name="_next" value="https://lenpitervl1202-lang.github.io/tury-spb/?ok=1">
             <input type="hidden" name="tour" id="modalTourHidden">
             <input type="text" name="name" placeholder="Ваше имя" id="bookingName" required>
             <input type="tel" name="phone" placeholder="Номер телефона" id="bookingPhone" required>
             <input type="email" name="email" placeholder="Email (необязательно)" id="bookingEmail">
-            <button type="submit" class="btn-submit" onclick="setTimeout(()=>document.getElementById('bookingModal').classList.remove('active'),500)">Отправить заявку</button>
+            <button type="submit" class="btn-submit">Отправить заявку</button>
         </form>
         <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
             Наш менеджер свяжется с вами в течение 15 минут
@@ -1130,17 +1131,6 @@
     modal.addEventListener('click', function(e) {
         if (e.target === this) modal.classList.remove('active');
     });
-
-    function submitBooking(form) {
-        const name = form.name.value.trim();
-        const phone = form.phone.value.trim();
-        const email = form.email.value.trim();
-        const tour = document.getElementById('modalTourHidden').value;
-
-        const body = `Тур: ${tour}%0AИмя: ${name}%0AТелефон: ${phone}%0AEmail: ${email}`;
-        window.open(`mailto:5800-5801@mail.ru?subject=Бронирование тура&body=${body}`, '_blank');
-        return false;
-    }
 </script>
 </body>
 </html>
