@@ -278,6 +278,46 @@
         }
         .dest-btn:hover { background: rgba(212, 160, 86, 0.2); }
 
+        /* ─── BOOKING MODAL ─── */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px); z-index: 9999;
+            display: none; align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 24px; padding: 40px; max-width: 460px; width: 100%;
+            position: relative; animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-close {
+            position: absolute; top: 16px; right: 16px;
+            background: none; border: none; color: var(--text-muted);
+            font-size: 24px; cursor: pointer; line-height: 1;
+        }
+        .modal-close:hover { color: #fff; }
+        .modal h3 { font-size: 24px; margin-bottom: 6px; }
+        .modal .modal-tour { color: var(--gold-light); font-size: 14px; margin-bottom: 24px; }
+        .modal input {
+            width: 100%; padding: 14px 18px; border-radius: 12px;
+            border: 1px solid var(--border); background: rgba(255,255,255,0.05);
+            color: #fff; font-size: 15px; margin-bottom: 12px; box-sizing: border-box;
+            outline: none; transition: border 0.2s;
+        }
+        .modal input:focus { border-color: var(--gold); }
+        .modal .btn-submit {
+            width: 100%; padding: 16px;
+            background: linear-gradient(135deg, var(--gold), var(--sunset));
+            border: none; border-radius: 60px; color: #fff; font-weight: 700;
+            font-size: 16px; cursor: pointer; transition: opacity 0.2s;
+        }
+        .modal .btn-submit:hover { opacity: 0.9; }
+
         /* ─── CATEGORIES ─── */
         .categories { padding: 60px 0; }
         .cat-grid {
@@ -1047,6 +1087,60 @@
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
+
+    // ─── BOOKING MODAL ───
+    const modal = document.getElementById('bookingModal');
+    const modalTour = document.getElementById('modalTourName');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.dest-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.dest-card');
+            const name = card?.querySelector('h3')?.textContent || 'Тур';
+            modalTour.textContent = 'Направление: ' + name;
+            modal.classList.add('active');
+        });
+    });
+
+    modalClose.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) modal.classList.remove('active');
+    });
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('bookingName').value.trim();
+        const phone = document.getElementById('bookingPhone').value.trim();
+        const email = document.getElementById('bookingEmail').value.trim();
+        const tour = modalTour.textContent.replace('Направление: ', '');
+
+        const body = `Заявка на бронирование\n\nТур: ${tour}\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}`;
+        window.location.href = `mailto:booking@tury-spb.ru?subject=Бронирование тура&body=${encodeURIComponent(body)}`;
+
+        modal.classList.remove('active');
+        this.reset();
+        alert('Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+    });
 </script>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <h3>Бронирование</h3>
+        <div class="modal-tour" id="modalTourName"></div>
+        <form id="bookingForm">
+            <input type="text" placeholder="Ваше имя" id="bookingName" required>
+            <input type="tel" placeholder="Номер телефона" id="bookingPhone" required>
+            <input type="email" placeholder="Email (необязательно)" id="bookingEmail">
+            <button type="submit" class="btn-submit">Отправить заявку</button>
+        </form>
+        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">
+            Наш менеджер свяжется с вами в течение 15 минут
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
