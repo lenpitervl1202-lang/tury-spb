@@ -609,7 +609,7 @@
                             <span class="from">от</span>
                             <span class="amount">25 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -631,7 +631,7 @@
                             <span class="from">от</span>
                             <span class="amount">18 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -653,7 +653,7 @@
                             <span class="from">от</span>
                             <span class="amount">45 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -675,7 +675,7 @@
                             <span class="from">от</span>
                             <span class="amount">13 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -697,7 +697,7 @@
                             <span class="from">от</span>
                             <span class="amount">55 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -719,7 +719,7 @@
                             <span class="from">от</span>
                             <span class="amount">41 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -741,7 +741,7 @@
                             <span class="from">от</span>
                             <span class="amount">9 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -763,7 +763,7 @@
                             <span class="from">от</span>
                             <span class="amount">75 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -785,7 +785,7 @@
                             <span class="from">от</span>
                             <span class="amount">21 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -807,7 +807,7 @@
                             <span class="from">от</span>
                             <span class="amount">89 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -829,7 +829,7 @@
                             <span class="from">от</span>
                             <span class="amount">23 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -851,7 +851,7 @@
                             <span class="from">от</span>
                             <span class="amount">159 900 <span>₽</span></span>
                         </div>
-                        <a <button type="button" class="dest-btn">Забронировать</button>
+                        <a <button type="button" class="dest-btn" onclick="openBooking(this)">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -1095,15 +1095,12 @@
     const modalTour = document.getElementById('modalTourName');
     const modalClose = document.getElementById('modalClose');
 
-    document.querySelectorAll('.dest-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const card = this.closest('.dest-card');
-            const name = card?.querySelector('h3')?.textContent || 'Тур';
-            modalTour.textContent = 'Направление: ' + name;
-            modal.classList.add('active');
-        });
-    });
+    function openBooking(el) {
+        const card = el.closest('.dest-card');
+        const name = card?.querySelector('h3')?.textContent || 'Тур';
+        modalTour.textContent = 'Направление: ' + name;
+        modal.classList.add('active');
+    }
 
     modalClose.addEventListener('click', () => modal.classList.remove('active'));
     modal.addEventListener('click', function(e) {
@@ -1117,12 +1114,9 @@
         const email = document.getElementById('bookingEmail').value.trim();
         const tour = modalTour.textContent.replace('Направление: ', '');
 
-        const body = `Заявка на бронирование\n\nТур: ${tour}\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}`;
-        window.location.href = `mailto:booking@tury-spb.ru?subject=Бронирование тура&body=${encodeURIComponent(body)}`;
-
         modal.classList.remove('active');
         this.reset();
-        alert('Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+        alert('Заявка принята! Мы свяжемся с вами в ближайшее время.');
     });
 </script>
 
